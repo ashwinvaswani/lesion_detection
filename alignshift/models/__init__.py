@@ -1,0 +1,4 @@
+from truncated_densenet3d_alignshift import DenseNetCustomTrunc3dAlign
+from truncated_densenet3d_tsm import DenseNetCustomTrunc3dTSM
+from truncated_densenet3d_acs import DenseNetCustomTrunc3dACS
+from truncated_densenet3d_acs2 import DenseNetCustomTrunc3dACS2
