@@ -31,7 +31,7 @@ class AlignShiftMaskRCNN(TwoStageDetector):
 
     def __init__(self,
                  backbone,
-                #  backbone2,
+                 backbone2,
                 #  backbone3,
                  rpn_head,
                  bbox_roi_extractor,
@@ -45,7 +45,7 @@ class AlignShiftMaskRCNN(TwoStageDetector):
                  pretrained=None):
         super(AlignShiftMaskRCNN, self).__init__(
             backbone=backbone,
-            # backbone2=backbone2,
+            backbone2=backbone2,
             # backbone3=backbone3,
             neck=neck,
             shared_head=shared_head,
@@ -63,15 +63,15 @@ class AlignShiftMaskRCNN(TwoStageDetector):
         """
 
         # Combining early
-        img1 = torch.cat([img[0],img[1],img[2]],dim=1)
-        x = self.backbone(img1,thickness)
+#         img1 = torch.cat([img[0],img[1],img[2]],dim=1)
+#         x = self.backbone(img1,thickness)
 
         # Combining late
 
-        # x1 = self.backbone(img[0],thickness)
-        # x2 = self.backbone2(img[1],thickness)
+        x1 = self.backbone(img[0],thickness)
+        x2 = self.backbone2(img[1],thickness)
 
-        # x = [torch.cat([x1[0],x2[0]],dim=1)]
+        x = [torch.cat([x1[0],x2[0]],dim=1)]
 
         if self.with_neck:
             x = self.neck(x)
