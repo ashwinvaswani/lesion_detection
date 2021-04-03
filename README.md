@@ -31,15 +31,10 @@ The following code is implemented on top of AlignShift(MICCAI 2020) and uses Ope
   * Specify data root in [./deeplesion/ENVIRON.py](./deeplesion/ENVIRON.py)
 
 * Training
+  Using ```NCCL_DEBUG=INFO``` helps with getting the debug output causing the deadlock.
   ```bash
   ./deeplesion/train_dist.sh ${mmdetection script} ${dist training GPUS}
   ```
-
-  * Train AlignShiftConv models 
-  ```bash
-  ./deeplesion/train_dist.sh ./deeplesion/mconfigs/densenet_align.py 2
-  ```
-
   * Train ACS models 
   ```bash
   ./deeplesion/train_dist.sh ./deeplesion/mconfigs/densenet_acs.py 2
