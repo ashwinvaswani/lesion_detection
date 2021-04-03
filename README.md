@@ -47,5 +47,8 @@ The following code is implemented on top of AlignShift(MICCAI 2020) and uses Ope
    ./deeplesion/eval.sh ./deeplesion/mconfigs/densenet_acs.py ./deeplesion/model_weights/acs_7slice.pth
    ```
 
+Link to our best model:
+https://drive.google.com/file/d/1qaXeMjiNsz8uZuKz0Mx8V4uQ2jHnTZcw/view?usp=sharing
+
 **[WIP] More code is coming soon, stay tuned!**
 
