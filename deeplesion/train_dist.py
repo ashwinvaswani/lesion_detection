@@ -3,18 +3,30 @@ from __future__ import division
 import argparse
 import sys
 #sys.path.remove('/home/ubuntu/anaconda3/envs/pytorch_p36/lib/python3.6/site-packages/mmdet-2.1.0+264fdf6-py3.6-linux-x86_64.egg')
-sys.path.append('/EBS_400GB/AlignShift/')
-sys.path.append('/EBS_400GB/AlignShift/mmdet')
+sys.path.append('/cluster/qtim/users/apv12/UULD/lesion_detection')
+sys.path.append('/cluster/qtim/users/apv12/UULD/lesion_detection/mmdet')
 import os
 import torch
 torch.multiprocessing.set_sharing_strategy('file_system')
 from mmcv import Config
 
-# print(sys.path)
+
 try:
-    sys.path.remove('/EBS_400GB/AlignShift/mmdetection')
+    sys.path.remove('/cluster/qtim/users/apv12/UULD/lesion_detection/mmdetection')
 except:
     pass
+
+try:
+    sys.path.remove('/autofs/cluster/qtim/users/apv12/UULD/lesion_detection/mmdetection')
+except:
+    pass
+
+try:
+    sys.path.remove('/autofs/cluster/qtim/users/apv12/UULD/lesion_detection/deeplesion')
+except:
+    pass
+
+# print(sys.path)
     
 import torch.distributed as dist
 import torch.multiprocessing as mp

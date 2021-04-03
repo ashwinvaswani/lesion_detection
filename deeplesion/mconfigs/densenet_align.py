@@ -1,6 +1,6 @@
 # from deeplesion.ENVIRON import data_root
 
-data_root = '/EBS_400GB/MVP-Net/data/DeepLesion/Images_png/'
+data_root = '/cluster/qtim/users/apv12/UULD/'
 anchor_scales = [4, 6, 8, 12, 24, 48]#, 64
 # fp16 = dict(loss_scale=96.)
 

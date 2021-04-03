@@ -3,9 +3,26 @@ torch.multiprocessing.set_sharing_strategy('file_system')
 import numpy as np
 from pycocotools import mask as mutils
 import sys
-sys.path.append('/EBS_400GB/AlignShift/')
-sys.path.append('/EBS_400GB/AlignShift/mmdet')
-sys.path.remove('/EBS_400GB/AlignShift/mmdetection')
+sys.path.append('/cluster/qtim/users/apv12/UULD/lesion_detection')
+sys.path.append('/cluster/qtim/users/apv12/UULD/lesion_detection/mmdet')
+
+
+
+try:
+    sys.path.remove('/cluster/qtim/users/apv12/UULD/lesion_detection/mmdetection')
+except:
+    pass
+
+try:
+    sys.path.remove('/autofs/cluster/qtim/users/apv12/UULD/lesion_detection/mmdetection')
+except:
+    pass
+
+try:
+    sys.path.remove('/autofs/cluster/qtim/users/apv12/UULD/lesion_detection/deeplesion')
+except:
+    pass
+
 import os
 os.environ['CUDA_VISIBLE_DEVICES']='0'
 # from dataset import DeepLesionDataset
@@ -345,12 +362,13 @@ def main(checkpoint, cfg_path=None):
     load_checkpoint(model, checkpoint, map_location='cpu', strict=True)
     outputs = single_gpu_test(model, dl)
     r = write_metrics(outputs, log_path, 'N/A')
+    print(r)
     # save_output(outputs, os.path.basename(os.path.dirname(checkpoint))+'.pkl')
-    with open(log_path,'a+') as f:
-        f.write(checkpoint+':\n'+r)
-    with open(os.path.dirname(checkpoint)+'metrics_log.txt','a+') as f:
-        f.write(r)        
-        print(r)
+    # with open(log_path,'a+') as f:
+    #     f.write(checkpoint+':\n'+r)
+    # with open(os.path.dirname(checkpoint)+'metrics_log.txt','a+') as f:
+    #     f.write(r)        
+    #     print(r)
 
 if __name__ =='__main__':
     # checkpoint_path = f'/mnt/data3/deeplesion/dl/work_dirs/densenet_3d_acs_r2/latest.pth'

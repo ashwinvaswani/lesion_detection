@@ -1,4 +1,6 @@
-from deeplesion.ENVIRON import data_root
+# from deeplesion.ENVIRON import data_root
+
+data_root = '/cluster/qtim/users/apv12/UULD/'
 anchor_scales = [4, 6, 8, 12, 24, 48]#, 64
 # fp16 = dict(loss_scale=96.)
 
@@ -6,8 +8,8 @@ dataset_transform = dict(
     IMG_DO_CLIP = False,
     # PIXEL_MEAN = 0.5,
     # WINDOWING = [-1024, 2050],
+    # WINDOWING = [-505, 1980],
     WINDOWING = [-1024, 3071],
-    # WINDOWING1 = [-1024, 3071],
     # WINDOWING = [50, 449],
     WINDOWING2 = [-1024, 3071],
     WINDOWING3 = [-1024, 3071],
@@ -18,8 +20,8 @@ dataset_transform = dict(
     GROUNP_ZSAPACING = False,
 )
 input_channel = dataset_transform['NUM_SLICES']
-# feature_channel = 512
-feature_channel = 1024
+feature_channel = 512
+# feature_channel = 1024
 # model settings
 weights2d_path = None,
 model = dict(
@@ -28,21 +30,21 @@ model = dict(
     backbone=dict(
         type='DenseNetCustomTrunc3dACS',
         n_cts=input_channel,
-        out_dim=int(feature_channel/2),
+        # out_dim=int(feature_channel/2),
         out_dim =feature_channel,
         fpn_finest_layer=2,
         ref_thickness=2.0,
         n_fold=8,
         memory_efficient=True),
-    backbone2=dict(
-        type='DenseNetCustomTrunc3dACS',
-        n_cts=input_channel,
-        out_dim=int(feature_channel/2),
-        # out_dim =feature_channel,
-        fpn_finest_layer=2,
-        ref_thickness=2.0,
-        n_fold=8,
-        memory_efficient=True),
+    # backbone2=dict(
+    #     type='DenseNetCustomTrunc3dACS',
+    #     n_cts=input_channel,
+    #     out_dim=int(feature_channel/2),
+    #     # out_dim =feature_channel,
+    #     fpn_finest_layer=2,
+    #     ref_thickness=2.0,
+    #     n_fold=8,
+    #     memory_efficient=True),
     # backbone3=dict(
     #     type='DenseNetCustomTrunc3dACS',
     #     n_cts=input_channel,
@@ -203,7 +205,7 @@ test_pipeline = [
     dict(type='Collect', keys=['img', 'gt_bboxes']),
 ]
 data = dict(
-    imgs_per_gpu=3,
+    imgs_per_gpu=6,
     workers_per_gpu=0,
     train=dict(
         type=dataset_type,
@@ -249,12 +251,12 @@ log_config = dict(
 # yapf:enable
 #evaluation = dict(interval=1)
 # runtime settings
-total_epochs = 25#16
+total_epochs = 26#16
 dist_params = dict(backend='nccl')
 log_level = 'INFO'
-work_dir = f'./work_dirs/densenet_3d_acs_r5'
+work_dir = f'./work_dirs/densenet_3d_acs_best2'
 load_from = None
-resume_from = None
+resume_from = f'./epoch_25.pth'
 workflow = [('train', 1)]#, ('val',1)
 GPU = '0,1,2,3'
 description='acs'

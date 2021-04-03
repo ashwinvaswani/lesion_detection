@@ -165,7 +165,7 @@ def load_prep_img(data_dir, imname, spacing, slice_intv, cfg, num_slice=3, is_tr
     im1 = windowing(im, cfg.WINDOWING)
     im2 = windowing(im, cfg.WINDOWING2)
     im3 = windowing(im,cfg.WINDOWING3)
-    im_shape = im.shape[0:2]
+    im_shape = im1.shape[0:2]
     im_scale = 1.0
 
     # new_img = [im,im2]

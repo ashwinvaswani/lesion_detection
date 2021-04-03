@@ -82,7 +82,7 @@ class DeepLesionDatasetACS(CustomDataset):
         # print("Image",im)
         # print(im.shape)
         # im -= self.cfg.PIXEL_MEAN
-        boxes = self.clip_to_image(boxes, im[0], False)
+        boxes = self.clip_to_image(boxes, im, False)
 
         masks = masks.transpose((2, 0, 1))
         boxes = boxes.astype(np.float32)
@@ -99,8 +99,9 @@ class DeepLesionDatasetACS(CustomDataset):
         results['filename'] = image_fn
         # results['flage'] = flage  
         results['img'] = im
-        results['img_shape'] = im[0].shape
-        results['ori_shape'] = im[0].shape#[ann['height'], ann['width']]
+
+        results['img_shape'] = im.shape
+        results['ori_shape'] = im.shape#[ann['height'], ann['width']]
         if self.proposals is not None:
             results['proposals'] = self.proposals[index]
 
@@ -164,14 +165,14 @@ def load_prep_img(data_dir, imname, spacing, slice_intv, cfg, num_slice=3, is_tr
     im1 = windowing(im, cfg.WINDOWING)
     im2 = windowing(im, cfg.WINDOWING2)
     im3 = windowing(im,cfg.WINDOWING3)
-    im_shape = im.shape[0:2]
+    im_shape = im1.shape[0:2]
     im_scale = 1.0
 
     # new_img = [im,im2]
     # im = cv2.merge(new_img)
     # im = im.astype(np.float32,
     #                    copy=False)
-    return [im1,im2,im3], im_scale
+    return im1, im_scale
 
 def load_multislice_img_16bit_png(data_dir, imname, slice_intv, num_slice, norm_slice_intv):
     data_cache = {}

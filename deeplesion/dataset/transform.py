@@ -39,13 +39,8 @@ class DefaultFormatBundle_3d(object):
 
     def __call__(self, results):
         if 'img' in results:
-            img = [np.ascontiguousarray(np.expand_dims(results['img'][0].transpose(2, 0, 1), 0)), 
-                    np.ascontiguousarray(np.expand_dims(results['img'][1].transpose(2, 0, 1), 0)),
-                    np.ascontiguousarray(np.expand_dims(results['img'][2].transpose(2, 0, 1), 0))]
-            results['img'] = [DC(to_tensor(img[0]), stack=True), DC(to_tensor(img[1]), stack=True), DC(to_tensor(img[2]), stack=True)]
-
-            # img = [np.ascontiguousarray(np.expand_dims(results['img'][0].transpose(2, 0, 1), 0))]
-            # results['img'] = [DC(to_tensor(img[0]), stack=True)]
+            img = np.ascontiguousarray(np.expand_dims(results['img'].transpose(2, 0, 1), 0))
+            results['img'] = DC(to_tensor(img), stack=True)
         for key in ['proposals', 'gt_bboxes', 'gt_bboxes_ignore', 'gt_labels']:
             if key not in results:
                 continue

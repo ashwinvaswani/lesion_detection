@@ -63,12 +63,12 @@ class AlignShiftMaskRCNN(TwoStageDetector):
         """
 
         # Combining early
-        img1 = torch.cat([img[0],img[1],img[2]],dim=1)
-        x = self.backbone(img1,thickness)
+#         img1 = torch.cat([img[0],img[1],img[2]],dim=1)
+#         x = self.backbone(img1,thickness)
 
         # Combining late
 
-        # x1 = self.backbone(img[0],thickness)
+        x = self.backbone(img,thickness)
         # x2 = self.backbone2(img[1],thickness)
 
         # x = [torch.cat([x1[0],x2[0]],dim=1)]
@@ -118,8 +118,12 @@ class AlignShiftMaskRCNN(TwoStageDetector):
 
         
         # print("In detector")
+        # print(img)
+        print(img.shape)
+        # assert 1==0
         x = self.extract_feat(img, thickness)
 
+        
         losses = dict()
 
         # RPN forward and loss
